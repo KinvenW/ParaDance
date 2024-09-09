@@ -88,7 +88,7 @@ class BaseDataLoader(ABC):
         """
         if self.df is not None and columns is not False:
             self.df[columns] = self.df[columns].fillna(0)
-            self.df = self.df[(self.df[columns] > 0).all(axis=1)]
+            self.df = self.df[(self.df[columns] > 0).all(axis=1)]   # 只包含在 columns 中指定的所有列的值都大于 0 的行。
             self.df.reset_index(drop=True, inplace=True)
         self.df = self.df.fillna(0)
 

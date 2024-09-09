@@ -1,0 +1,14 @@
+---
+DataLoader:
+  file_path: ./
+  file_name: samples
+Calculator:
+  selected_columns: [live_fr_living_ctr, live_fr_living_lvtr, live_fr_living_gtr, fr_pvtr,]
+  equation_type: product
+Objective:
+  study_name: Make KS Great Again
+  direction: maximize
+  formula: -10 * targets[0] + targets[1] - targets[2]
+Evaluator:
+  flags: [portfolio, auc, distinct_count_portfolio]
+  target_columns: [live_click, ua_count, user_id]
