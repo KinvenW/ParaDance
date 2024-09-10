@@ -53,13 +53,13 @@ def process_data(data_path, column_names, feature_cols, label_col, save_path, pr
 def main():
     ## 处理原始数据，导出为新的csv
     print('process data...')
-    data_path='data/train/20240908'
+    data_path='/home/wuhongtao/data/train/20240908'
     column_names = ['llsid', 'photo_id', 'label', 'norm_rerank_like_pxtr', 'norm_rerank_reply_pxtr', 'norm_rerank_expand_pxtr', 'product_name']
     feature_cols = ['norm_rerank_like_pxtr', 'norm_rerank_reply_pxtr', 'norm_rerank_expand_pxtr']   # 与 init_values_a 等参数顺序对应
     label_col = 'label'
     product_name='KUAISHOU'   # NEBULA | KUAISHOU
     group_by_cols = ['llsid', 'photo_id']
-    save_path = f'data/train_{product_name}_{data_path.split('/')[-1]}.csv'
+    save_path = f'/home/wuhongtao/data/train_{product_name}_{data_path.split('/')[-1]}.csv'
     if not os.path.exists(save_path):
         process_data(data_path,column_names,feature_cols,label_col,save_path=save_path,product_name=product_name)
 
@@ -67,7 +67,7 @@ def main():
     ## 加载数据
     print('load data...')
     loader = para.CSVLoader(
-        file_path="./data/",
+        file_path="/home/wuhongtao/data/",
         file_name=f"train_{product_name}_{data_path.split('/')[-1]}",
         clean_zero_columns=['norm_rerank_like_pxtr', 'norm_rerank_reply_pxtr', 'norm_rerank_expand_pxtr'],
         # max_rows=100000,
