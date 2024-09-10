@@ -53,13 +53,13 @@ def process_data(data_path, column_names, feature_cols, label_col, save_path, pr
 def main():
     ## 处理原始数据，导出为新的csv
     print('process data...')
-    data_path='data/train/part-00000-eb918ed0-bbbe-4866-b9b3-0b16a6fad5dd-c000'
+    data_path='data/train/20240908'
     column_names = ['llsid', 'photo_id', 'label', 'norm_rerank_like_pxtr', 'norm_rerank_reply_pxtr', 'norm_rerank_expand_pxtr', 'product_name']
     feature_cols = ['norm_rerank_like_pxtr', 'norm_rerank_reply_pxtr', 'norm_rerank_expand_pxtr']   # 与 init_values_a 等参数顺序对应
     label_col = 'label'
-    product_name='NEBULA'   # NEBULA | KUAISHOU
+    product_name='KUAISHOU'   # NEBULA | KUAISHOU
     group_by_cols = ['llsid', 'photo_id']
-    save_path = f'data/train_{product_name}.csv'
+    save_path = f'data/train_{product_name}_{data_path.split('/')[-1]}.csv'
     if not os.path.exists(save_path):
         process_data(data_path,column_names,feature_cols,label_col,save_path=save_path,product_name=product_name)
 
@@ -68,7 +68,7 @@ def main():
     print('load data...')
     loader = para.CSVLoader(
         file_path="./data/",
-        file_name=f"train_{product_name}",
+        file_name=f"train_{product_name}_{data_path.split('/')[-1]}",
         clean_zero_columns=['norm_rerank_like_pxtr', 'norm_rerank_reply_pxtr', 'norm_rerank_expand_pxtr'],
         # max_rows=100000,
     )
@@ -119,16 +119,16 @@ def main():
     )
 
 
-    # ## 计算 baseline 的结果
-    # print('calculate baseline...')
-    # base_weights=[0.3,3,2,0.3,3,2,0.3,5,3]
-    # cal.get_overall_score(base_weights) # 在计算离线指标前需要先算一次融合分
-    # base_result = cal.calculate_wuauc(
-    #     groupby = 'llsid_pid',
-    #     target_column = 'new_label',
-    #     mask_column=None
-    # )
-    # print(f'baseline: wuauc={base_result}')
+    ## 计算 baseline 的结果
+    print('calculate baseline...')
+    base_weights=[0.3,3,2,0.3,3,2,0.3,5,3]
+    cal.get_overall_score(base_weights) # 在计算离线指标前需要先算一次融合分
+    base_result = cal.calculate_wuauc(
+        groupby = 'llsid_pid',
+        target_column = 'new_label',
+        mask_column=None
+    )
+    print(f'baseline: wuauc={base_result}')
 
 
     ## 开始优化
