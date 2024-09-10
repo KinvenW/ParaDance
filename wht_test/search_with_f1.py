@@ -57,7 +57,7 @@ def main():
     column_names = ['llsid', 'photo_id', 'label', 'norm_rerank_like_pxtr', 'norm_rerank_reply_pxtr', 'norm_rerank_expand_pxtr', 'product_name']
     feature_cols = ['norm_rerank_like_pxtr', 'norm_rerank_reply_pxtr', 'norm_rerank_expand_pxtr']   # 与 init_values_a 等参数顺序对应
     label_col = 'label'
-    product_name='KUAISHOU'   # NEBULA | KUAISHOU
+    product_name='NEBULA'   # NEBULA | KUAISHOU
     group_by_cols = ['llsid', 'photo_id']
     save_path = f'/home/wuhongtao/data/train_{product_name}_{data_path.split('/')[-1]}.csv'
     if not os.path.exists(save_path):
