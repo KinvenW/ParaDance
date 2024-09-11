@@ -29,13 +29,19 @@ def calculate_wuauc(
     :param auc: bool, optional, default: False
     :return: AUC/WUAUC/UAUC
     """
+    def safe_auc(y_true, y_score):
+        try:
+            return float(roc_auc_score(y_true, y_score))
+        except ValueError:
+            # 当只有一个类别时,返回0.5(随机猜测的AUC)
+            return 0.5
     df = calculator.evaluated_dataframe
     if auc:
-        result = float(roc_auc_score(df[target_column].values, df["overall_score"]))
+        result = float(safe_auc(df[target_column].values, df["overall_score"]))
     else:
         if groupby is not None:
             grouped = df.groupby(groupby).apply(
-                lambda x: float(roc_auc_score(x[target_column], x["overall_score"]))
+                lambda x: float(safe_auc(x[target_column], x["overall_score"]))
             )
             if weights_for_groups is not None:
                 counts_sorted = weights_for_groups.loc[grouped.index]
