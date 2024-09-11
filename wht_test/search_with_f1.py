@@ -1,7 +1,10 @@
-import paradance as para
 import pandas as pd
 import time
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname('/home/wuhongtao/ParaDance/src/paradance')))
+import paradance as para
+
 
 
 def process_data(data_path, column_names, feature_cols, label_col, save_path, product_name=None):
