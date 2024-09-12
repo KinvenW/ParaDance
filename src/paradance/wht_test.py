@@ -122,21 +122,21 @@ def main():
     )
 
 
-    ## 计算 baseline 的结果
-    print('calculate baseline...')
-    base_weights=[0.3,3,2,0.3,3,2,0.3,5,3]
-    cal.get_overall_score(base_weights) # 在计算离线指标前需要先算一次融合分
-    base_result = cal.calculate_wuauc(
-        groupby = 'llsid_pid',
-        target_column = 'new_label',
-        mask_column=None
-    )
-    print(f'baseline: wuauc={base_result}')
+    # ## 计算 baseline 的结果
+    # print('calculate baseline...')
+    # base_weights=[0.3,3,2,0.3,3,2,0.3,5,3]
+    # cal.get_overall_score(base_weights) # 在计算离线指标前需要先算一次融合分
+    # base_result = cal.calculate_wuauc(
+    #     groupby = 'llsid_pid',
+    #     target_column = 'new_label',
+    #     mask_column=None
+    # )
+    # print(f'baseline: wuauc={base_result}')
 
 
     ## 开始优化
     print('start optimizing...')
-    para.optimize_run(ob, n_trials=100)
+    para.optimize_run(ob, n_trials=100, parallel=True)
     print('optimization is done!')
 
 if __name__=='__main__':
