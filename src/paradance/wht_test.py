@@ -136,7 +136,7 @@ def main():
 
     ## 开始优化
     print('start optimizing...')
-    para.optimize_run(ob, n_trials=100, parallel=True)
+    para.optimize_run(ob, n_trials=100, parallel=10)
     print('optimization is done!')
 
 if __name__=='__main__':
